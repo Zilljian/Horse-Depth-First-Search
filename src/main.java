@@ -39,8 +39,8 @@ public class main {
 
         BigDecimal nanos = new BigDecimal(System.nanoTime()).subtract(timeStart);
         BigDecimal seconds = nanos.divide(new BigDecimal(1e+9));
-        System.out.println(seconds);
 
-        System.out.print(field.toString());
+        System.out.println(field.toString());
+        System.out.println(seconds + " seconds passed");
     }
 }

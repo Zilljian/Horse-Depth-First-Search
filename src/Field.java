@@ -59,107 +59,82 @@ public class Field {
     private void findSearch(int x, int y){
         if (minPath >= tempCounter + 1) {
 
-            if ((x + 2) >= 0 && (x + 2) < OX && (y + 1) >= 0 && (y + 1) < OY && field[y + 1][x + 2] > tempCounter + 1) {
+            if (isFit(x + 2,y + 1)) {
                 tempCounter++;
                 field[y + 1][x + 2] = tempCounter;
 
-                if (isDestination(x + 2, y + 1)) {
-                    minPath = tempCounter;
-                    tempCounter--;
-                } else {
-                    findSearch(x + 2, y + 1);
-                }
+                if (isDestination(x + 2, y + 1)) minPath = tempCounter;
+                else findSearch(x + 2, y + 1);
 
                 tempCounter--;
             }
 
-            if ((x + 2) >= 0 && (x + 2) < OX && (y - 1) >= 0 && (y - 1) < OY && field[y - 1][x + 2] > tempCounter + 1) {
+            if (isFit(x + 2,y - 1)) {
                 tempCounter++;
                 field[y - 1][x + 2] = tempCounter;
 
-                if (isDestination(x + 2, y - 1)) {
-                    minPath = tempCounter;
-                } else {
-                    findSearch(x + 2, y - 1);
-                }
+                if (isDestination(x + 2, y - 1)) minPath = tempCounter;
+                else findSearch(x + 2, y - 1);
 
                 tempCounter--;
             }
 
-            if ((x + 1) >= 0 && (x + 1) < OX && (y + 2) >= 0 && (y + 2) < OY && field[y + 2][x + 1] > tempCounter + 1) {
+            if (isFit(x + 1,y + 2)) {
                 tempCounter++;
                 field[y + 2][x + 1] = tempCounter;
 
-                if (isDestination(x + 1, y + 2)) {
-                    minPath = tempCounter;
-                } else {
-                    findSearch(x + 1, y + 2);
-                }
+                if (isDestination(x + 1, y + 2)) minPath = tempCounter;
+                else findSearch(x + 1, y + 2);
 
                 tempCounter--;
             }
 
-            if ((x - 1) >= 0 && (x - 1) < OX && (y + 2) > 0 && (y + 2) < OY && field[y + 2][x - 1] > tempCounter + 1) {
+            if (isFit(x - 1,y + 2)) {
                 tempCounter++;
                 field[y + 2][x - 1] = tempCounter;
 
-                if (isDestination(x - 1 , y + 2)) {
-                    minPath = tempCounter;
-                } else {
-                    findSearch(x - 1, y + 2);
-                }
+                if (isDestination(x - 1 , y + 2)) minPath = tempCounter;
+                else findSearch(x - 1, y + 2);
 
                 tempCounter--;
             }
 
-            if ((x - 2) >= 0 && (x - 2) < OX && (y + 1) > 0 && (y + 1) < OY && field[y + 1][x - 2] > tempCounter + 1) {
+            if (isFit(x - 2,y + 1)) {
                 tempCounter++;
                 field[y + 1][x - 2] = tempCounter;
 
-                if (isDestination(x - 2, y + 1)) {
-                    minPath = tempCounter;
-                } else {
-                    findSearch(x - 2, y + 1);
-                }
+                if (isDestination(x - 2, y + 1)) minPath = tempCounter;
+                else findSearch(x - 2, y + 1);
 
                 tempCounter--;
             }
 
-            if ((x - 1) >= 0 && (x - 1) < OX && (y - 2) >= 0 && (y - 2) < OY && field[y - 2][x - 1] > tempCounter + 1) {
+            if (isFit(x - 1,y - 2)) {
                 tempCounter++;
                 field[y - 2][x - 1] = tempCounter;
 
-                if (isDestination(x - 1, y - 2)) {
-                    minPath = tempCounter;
-                } else {
-                    findSearch(x - 1, y - 2);
-                }
+                if (isDestination(x - 1, y - 2)) minPath = tempCounter;
+                else findSearch(x - 1, y - 2);
 
                 tempCounter--;
             }
 
-            if ((x + 1) >= 0 && (x + 1) < OX && (y - 2) >= 0 && (y - 2) < OY && field[y - 2][x + 1] > tempCounter + 1) {
+            if (isFit(x + 1,y - 2)) {
                 tempCounter++;
                 field[y - 2][x + 1] = tempCounter;
 
-                if (isDestination(x + 1, y - 2)) {
-                    minPath = tempCounter;
-                } else {
-                    findSearch(x + 1, y - 2);
-                }
+                if (isDestination(x + 1, y - 2)) minPath = tempCounter;
+                else findSearch(x + 1, y - 2);
 
                 tempCounter--;
             }
 
-            if ((x - 2) >= 0 && (x - 2) < OX && (y - 1) >= 0 && (y - 1) < OY && field[y - 1][x - 2] > tempCounter + 1) {
+            if (isFit(x - 2,y - 1)) {
                 tempCounter++;
                 field[y - 1][x - 2] = tempCounter;
 
-                if (isDestination(x - 2, y - 1)) {
-                    minPath = tempCounter;
-                } else {
-                    findSearch(x - 2, y - 1);
-                }
+                if (isDestination(x - 2, y - 1)) minPath = tempCounter;
+                else findSearch(x - 2, y - 1);
 
                 tempCounter--;
             }
@@ -168,6 +143,10 @@ public class Field {
 
     private boolean isDestination(int x1, int y1){
         return (x1 == x) && (y1 == y);
+    }
+
+    private boolean isFit (int x, int y) {
+        return (x >= 0 && y >= 0 && x < OX && y < OY && field[y][x] > tempCounter + 1);
     }
 
     @Override
