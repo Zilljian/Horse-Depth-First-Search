@@ -1,6 +1,9 @@
 public class Field {
 
     private String fieldToString = "Not initialized";
+    //private final int stepToX[] = { 1, 2, 2, 1,-1,-2,-2,-1}; // Lists with steps for the first approach.
+    //private final int stepToY[] = {-2,-1, 1, 2, 2, 1,-1,-2};
+
     private int field[][];
     private int OX, OY;
     private int x0, y0, x, y;
@@ -16,9 +19,10 @@ public class Field {
         this.x = x - 1;
         this.y = y - 1;
 
-        if (isProper()) {
+        if (isDestination(x0, y0)) fieldToString = "0 0";
+        else if (isProper()) {
             initialize();
-            findSearch(this.x0, this.y0);
+            findCell(this.x0, this.y0);
             fieldToString = Integer.toString(minPath);
         }
     }
@@ -32,7 +36,7 @@ public class Field {
             }
         }
 
-        field[x0][y0] = -1;
+        field[y0][x0] = -1;
         fieldToString = "Initialized";
     }
 
@@ -56,7 +60,25 @@ public class Field {
         return true;
     }
 
-    private void findSearch(int x, int y){
+// The first approach.
+    /*private void findCell(int x, int y) {             // This approach is more clear and less error prone,
+        if (minPath >= tempCounter + 1) {               // but in the other hand, it's one and a half times slower then the next one.
+            for (int i = 0; i < 8; i++) {
+                if (isFit(x + stepToX[i], y + stepToY[i])) {
+                    tempCounter++;
+                    field[y + stepToY[i]][x + stepToX[i]] = tempCounter;
+
+                    if (isDestination(x + stepToX[i], y + stepToY[i])) minPath = tempCounter;
+                    else findCell(x + stepToX[i], y + stepToY[i]);
+
+                    tempCounter--;
+                }
+            }
+        }
+    }*/
+
+// The second approach.
+    private void findCell(int x, int y){
         if (minPath >= tempCounter + 1) {
 
             if (isFit(x + 2,y + 1)) {
@@ -64,7 +86,7 @@ public class Field {
                 field[y + 1][x + 2] = tempCounter;
 
                 if (isDestination(x + 2, y + 1)) minPath = tempCounter;
-                else findSearch(x + 2, y + 1);
+                else findCell(x + 2, y + 1);
 
                 tempCounter--;
             }
@@ -74,7 +96,7 @@ public class Field {
                 field[y - 1][x + 2] = tempCounter;
 
                 if (isDestination(x + 2, y - 1)) minPath = tempCounter;
-                else findSearch(x + 2, y - 1);
+                else findCell(x + 2, y - 1);
 
                 tempCounter--;
             }
@@ -84,7 +106,7 @@ public class Field {
                 field[y + 2][x + 1] = tempCounter;
 
                 if (isDestination(x + 1, y + 2)) minPath = tempCounter;
-                else findSearch(x + 1, y + 2);
+                else findCell(x + 1, y + 2);
 
                 tempCounter--;
             }
@@ -94,7 +116,7 @@ public class Field {
                 field[y + 2][x - 1] = tempCounter;
 
                 if (isDestination(x - 1 , y + 2)) minPath = tempCounter;
-                else findSearch(x - 1, y + 2);
+                else findCell(x - 1, y + 2);
 
                 tempCounter--;
             }
@@ -104,7 +126,7 @@ public class Field {
                 field[y + 1][x - 2] = tempCounter;
 
                 if (isDestination(x - 2, y + 1)) minPath = tempCounter;
-                else findSearch(x - 2, y + 1);
+                else findCell(x - 2, y + 1);
 
                 tempCounter--;
             }
@@ -114,7 +136,7 @@ public class Field {
                 field[y - 2][x - 1] = tempCounter;
 
                 if (isDestination(x - 1, y - 2)) minPath = tempCounter;
-                else findSearch(x - 1, y - 2);
+                else findCell(x - 1, y - 2);
 
                 tempCounter--;
             }
@@ -124,7 +146,7 @@ public class Field {
                 field[y - 2][x + 1] = tempCounter;
 
                 if (isDestination(x + 1, y - 2)) minPath = tempCounter;
-                else findSearch(x + 1, y - 2);
+                else findCell(x + 1, y - 2);
 
                 tempCounter--;
             }
@@ -134,7 +156,7 @@ public class Field {
                 field[y - 1][x - 2] = tempCounter;
 
                 if (isDestination(x - 2, y - 1)) minPath = tempCounter;
-                else findSearch(x - 2, y - 1);
+                else findCell(x - 2, y - 1);
 
                 tempCounter--;
             }
